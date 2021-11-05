@@ -5,8 +5,11 @@ namespace Restaurant.App.Tests;
 public class RestaurantTests
 {
 
-    [Fact]
-    public void IsOpen_WhenHourIsInInRange_ReturnsTrue()
+    [Theory]
+    [InlineData(8, 16, 10)]
+    [InlineData(11, 23, 18)]
+    [InlineData(12, 20, 14)]
+    public void IsOpen_WhenHourIsInInRange_ReturnsTrue(int from, int to, int input)
     {
         Restaurant restaurant = new()
         {
@@ -15,10 +18,10 @@ public class RestaurantTests
             Address = "USA",
             EnglishName = "KFC",
             PersianName = "کی اف سی",
-            OpeningHours = (From: 10, To: 22),
+            OpeningHours = (From: from, To: to),
         };
 
-        bool isOpen = restaurant.IsOpen(12);
+        bool isOpen = restaurant.IsOpen(input);
 
         Assert.True(isOpen);
     }
